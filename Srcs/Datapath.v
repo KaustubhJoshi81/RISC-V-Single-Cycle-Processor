@@ -24,13 +24,14 @@ module Datapath(
 input Reset,
 input clk,
 input [31:0] Instr,
-input PCSrc, [1:0]ResultSrc, ALUSrc, [1:0]ImmSrc, RegWrite, [2:0]ALUControl,
+input PCSrc, [1:0]ResultSrc, ALUSrc, [1:0]ImmSrc, RegWrite, [3:0]ALUControl,
 output [31:0] PC,
 output [31:0] WriteData,
 input [31:0] ReadData,
 output zero_flag,
 output [31:0]ALUResult,
-output [31:0] Final_Result
+output [31:0] Final_Result,
+input [2:0] DataSrc
     );
 
 //PC Register Logic
@@ -56,7 +57,12 @@ ALU AluUnit(ALUControl, SrcA, SrcB, ALUResult, zero_flag);
 //Register File Logic
 
 Register_File regfile(clk, Instr[19:15], Instr[24:20], RegWrite, Instr[11:7], Final_Result, SrcA, WriteData);
-//WD3 = Result
-Mux2_ResultSrc ResultMux(ALUResult, ReadData, PCPlus4, ResultSrc, Final_Result);                                   
+
+//ReadData, Data_Compress & DataSrc logic
+//ReadData = input to Data_compress and Data_Compress output = input to Mux2_ResultSrc
+wire [31:0] Final_Data;
+Data_Compress datacomp(ReadData, Final_Data, DataSrc);
+
+Mux2_ResultSrc ResultMux(ALUResult, Final_Data, PCPlus4, ResultSrc, Final_Result);                                   
 
 endmodule

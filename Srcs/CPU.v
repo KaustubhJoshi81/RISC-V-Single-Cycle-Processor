@@ -36,11 +36,14 @@ wire [1:0]ResultSrc;
 wire ALUSrc;
 wire [1:0]ImmSrc;
 wire RegWrite;
-wire [2:0]ALUControl;
+wire [3:0]ALUControl;
 wire zero_flag;
+wire [2:0] DataSrc;
 
-Datapath data_path(Reset, clk, Instr, PCSrc, ResultSrc, ALUSrc, ImmSrc, RegWrite, ALUControl, PC, WriteData, ReadData, zero_flag, ALUResult, Final_Result);
+Datapath data_path(Reset, clk, Instr, PCSrc, ResultSrc, ALUSrc, ImmSrc, RegWrite, ALUControl, PC, WriteData, 
+                   ReadData, zero_flag, ALUResult, Final_Result, DataSrc);
 
-Controller control(Instr[14:12], zero_flag, Instr[30], Instr[6:0], PCSrc, ResultSrc, MemWrite, ALUSrc, ImmSrc, RegWrite, ALUControl);
+Controller control(Instr[14:12], zero_flag, Instr[30], Instr[6:0], PCSrc, ResultSrc, MemWrite, ALUSrc, ImmSrc, 
+                   RegWrite, ALUControl, DataSrc);
 
 endmodule

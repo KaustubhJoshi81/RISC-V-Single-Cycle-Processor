@@ -33,7 +33,6 @@ begin
         
     else
         PC <= PCNext;
-       
 end
 
 endmodule

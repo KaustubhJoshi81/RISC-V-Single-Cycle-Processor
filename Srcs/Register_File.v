@@ -31,11 +31,8 @@ output [31:0] RD2
 
 reg [31:0] reg_file[31:0];
 
-//integer i;
 initial begin
-//    for (i = 0; i < 32; i = i + 1) begin
         reg_file[0] = 32'b0;
-//  end
 end
 
 assign RD1 = reg_file [AD1];

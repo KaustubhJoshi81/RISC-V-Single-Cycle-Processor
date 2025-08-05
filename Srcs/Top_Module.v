@@ -37,6 +37,6 @@ CPU cpu(Reset, clk, PC, Instr, DataAddress, MemWrite, WriteData, ReadData, Final
 
 Instruction_Memory InstrMem(PC, Instr);
 
-Data_Memory DataMem(DataAdress, WriteData, ReadData, MemWrite, clk);
+Data_Memory DataMem(DataAddress, WriteData, ReadData, MemWrite, clk);
 
 endmodule

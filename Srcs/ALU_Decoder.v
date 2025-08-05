@@ -24,7 +24,7 @@ module ALU_Decoder(
 input [2:0] funct3,
 input funct7b5, opb5,
 input [1:0]ALUOp,
-output reg [2:0]ALUControl 
+output reg [3:0]ALUControl 
     );
     
 wire RTypeSub = funct7b5 & opb5; //R-type suctraction
@@ -32,18 +32,18 @@ wire RTypeSub = funct7b5 & opb5; //R-type suctraction
 always @(*)
 begin
     case(ALUOp)
-        2'b00: ALUControl <= 3'b000;                        //Add (lw,sw)
-        2'b01: ALUControl <= 3'b001;                        //Sub (beq)
+        2'b00: ALUControl <= 4'b0000;                        //Add (lw,sw)
+        2'b01: ALUControl <= 4'b0001;                        //Sub (beq)
         default: case(funct3)
                     3'b000: if(RTypeSub)
-                                ALUControl <= 3'b001;       //Subtraction
+                                ALUControl <= 4'b0001;       //Subtraction
                             else 
-                                ALUControl <= 3'b000;       //Addition
-                    3'b010: ALUControl <= 3'b101;           //SLT
-                    3'b110: ALUControl <= 3'b011;           //OR
-                    3'b111: ALUControl <= 3'b010;           //AND
-
-                    default: ALUControl <= 3'bz;
+                                ALUControl <= 4'b0000;       //Addition
+                    3'b010: ALUControl <= 4'b0101;           //SLT
+                    3'b100: ALUControl <= 4'b0100;           //xor
+                    3'b110: ALUControl <= 4'b0011;           //OR
+                    3'b111: ALUControl <= 4'b0010;           //AND
+                    default: ALUControl <= 4'bz;
                  endcase                     
     endcase
 end

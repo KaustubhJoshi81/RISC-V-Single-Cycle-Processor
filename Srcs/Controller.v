@@ -25,14 +25,14 @@ input [2:0] funct3,
 input zero_flag,
 input funct7b5,
 input [6:0] op,     
-output PCSrc, [1:0]ResultSrc, MemWrite, ALUSrc, [1:0]ImmSrc, RegWrite, [2:0]ALUControl
+output PCSrc, [1:0]ResultSrc, MemWrite, ALUSrc, [1:0]ImmSrc, RegWrite, [3:0]ALUControl, [2:0] DataSrc
     );
    
 wire Branch;
 wire Jump;
 wire [1:0]ALUOp;
 
-Main_Decoder main_dec(funct3, op,Branch,ResultSrc, MemWrite, ALUSrc, ImmSrc, RegWrite, ALUOp, Jump);
+Main_Decoder main_dec(funct3, op,Branch,ResultSrc, MemWrite, ALUSrc, ImmSrc, RegWrite, ALUOp, Jump, DataSrc);
 ALU_Decoder alu_dec(funct3, funct7b5, op[5], ALUOp, ALUControl);
 
 assign PCSrc = (zero_flag & Branch) | Jump;    

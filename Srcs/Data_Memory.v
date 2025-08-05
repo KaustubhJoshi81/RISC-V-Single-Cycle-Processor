@@ -22,21 +22,22 @@
 module Data_Memory(
 input [31:0]DataAddress,
 input [31:0] Write,
-output reg [31:0] Read,
+output [31:0] Read,
 input WE,
 input clk
 );
 
-reg [31:0] mem[100:0];
+reg [31:0] mem[63:0];
 
 always @(posedge clk)
 begin
     if(WE)
         begin
-            mem[DataAddress] <= Write;
-            Read <= Write;
+            mem[DataAddress[31:2]] <= Write;
+            //Read <= Write;
         end
-     else
-        Read <= mem[DataAddress];
 end
+
+assign Read = mem[DataAddress[31:2]];
+
 endmodule
