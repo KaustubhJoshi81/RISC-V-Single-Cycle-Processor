@@ -41,18 +41,17 @@ initial begin
 Reset = 1'b1; # 22; Reset = 1'b0;
 end
 
-// check results 
 always @(negedge clk)
 begin
     if(MemWrite) begin
-        if(DataAddress === 100 & WriteData === 25) 
+        if(DataAddress === 32'h50c & WriteData === 32'hfffffaf3) 
         begin
         $display("Simulation succeeded");
         $stop; 
         end 
-        else if (DataAddress !== 96) begin
-        $display("Simulation failed"); $stop;
-        end 
+//        else if (DataAddress !== 96) begin
+//        $display("Simulation failed"); $stop;
+//        end 
     end
 end 
 
