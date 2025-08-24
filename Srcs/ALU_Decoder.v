@@ -6,7 +6,7 @@
 // Create Date: 22.06.2025 02:52:57
 // Design Name: Controller
 // Module Name: ALU_Decoder
-// Project Name: 
+// Project Name: Single_Cycle_CPU
 // Target Devices: 
 // Tool Versions: 
 // Description: 
@@ -39,10 +39,16 @@ begin
                                 ALUControl <= 4'b0001;       //Subtraction
                             else 
                                 ALUControl <= 4'b0000;       //Addition
-                    3'b010: ALUControl <= 4'b0101;           //SLT
-                    3'b100: ALUControl <= 4'b0100;           //xor
-                    3'b110: ALUControl <= 4'b0011;           //OR
-                    3'b111: ALUControl <= 4'b0010;           //AND
+                    3'b001: ALUControl <= 4'b0010;           //sll,  slli
+                    3'b010: ALUControl <= 4'b0011;           //slt,  slti
+                    3'b011: ALUControl <= 4'b0100;           //sltu, sltiu
+                    3'b100: ALUControl <= 4'b0101;           //xor,  xori
+                    3'b101: if(funct7b5)
+                                ALUControl <= 4'b0110;       //sra,  srai
+                            else
+                                ALUControl <= 4'b0111;       //srl,  srli
+                    3'b110: ALUControl <= 4'b1000;           //or,   ori
+                    3'b111: ALUControl <= 4'b1001;           //and,  andi
                     default: ALUControl <= 4'bz;
                  endcase                     
     endcase
