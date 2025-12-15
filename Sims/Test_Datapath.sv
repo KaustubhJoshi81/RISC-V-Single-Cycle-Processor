@@ -50,15 +50,22 @@ clk = 1;#5;
 end
 
 initial begin
-#12;
 Reset = 1; #10;
 Reset = 0;
-Instr = 32'h0471AA23; PCSrc = 1'b0; ResultSrc = 2'b01; ALUSrc = 1'b1; ImmSrc = 2'b01; RegWrite = 1'b0; ALUControl = 3'b000;  
+Instr = 32'h0471AA23; PCSrc = 1'b0; ResultSrc = 2'b01; ALUSrc = 1'b1; ImmSrc = 2'b01; RegWrite = 1'b0; 
+ALUControl = 3'b000; 
+#10;
+//------------------------------PC Reset Passed-----------------------------------------------------//
+//------------------------------sw Instruction Passed-----------------------------------------------//
 
-//------------------------------PC Reset Passed-----------------------------------------------//
-//------------------------------sw Instruction Passed---------------------------------------//
+
+Instr = 32'h83000083; PCSrc = 1'b0; ResultSrc = 2'b01; ALUSrc = 1'b1; ImmSrc = 2'b00; RegWrite = 1'b1; 
+ALUControl = 3'b000; DataSrc = 3'b000; ReadData = 32'b100000110000; 
+#5;
+assert (Final_Result === 32'b110000) else $error ("error: lb");
+
+//------------------------------lb Instruction Passed-----------------------------------------------//
 
 
 end
-
 endmodule

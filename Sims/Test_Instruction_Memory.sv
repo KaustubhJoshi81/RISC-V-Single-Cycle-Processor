@@ -28,9 +28,11 @@ logic [31:0] Instr;
 Instruction_Memory DUT(PC, Instr);
 
 initial begin
-PC = 32'b0; #5;
-PC = 32'b0100; #5;
-PC = 32'd16;
+integer i;
+    for (i=0; i<24; i++) begin
+        PC = 4*i; 
+        #5;
+    end
 end
 
 endmodule

@@ -36,14 +36,19 @@ clk = 0; #5;
 end
 
 initial begin
-WE = 1; Addr = 32'b01; Write = 32'b1010;
+WE = 1; Addr = 32'd96; Write = 32'd7;
+#5;
+Addr = 32'd100; Write = 32'd25;
+#10; 
+WE = 0;  
+#12;
+Addr = 32'd96;
 #10;
-WE = 0; Addr = 32'b01; 
-#10;
-WE = 1; Addr = 32'h60; Write = 32'b111;
-#5; 
-WE = 0;
-Write = 32'b0; 
+Addr = 32'd100;
+//#10;
+//WE = 1; 
+//WE = 0;
+//Write = 32'b0; 
 end
 
 endmodule

@@ -28,8 +28,10 @@ logic MemWrite;
 logic [31:0] WriteData;
 logic [31:0] DataAddress;
 logic [31:0] Final_Result;
+logic overflow;
+logic underflow;
 
-Top_Module DUT(clk, Reset, MemWrite, WriteData, DataAddress, Final_Result);
+Top_Module DUT(clk, Reset, MemWrite, WriteData, DataAddress, Final_Result, overflow, underflow);
 
 always begin
 clk = 0; #10;

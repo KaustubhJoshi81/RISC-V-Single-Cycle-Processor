@@ -46,13 +46,25 @@ Reset = 1;
 Reset = 0;
 #5;
 
-Instr = 32'h00C00193; 
+//Instr = 32'h00C00193; 
+//#10;
+//Instr = 32'b000000000111_00000_000_00111_0010011;
+//#10;
+//Instr = 32'h0471AA23;
+//#10;
+
+Instr = 32'h06000083; ReadData = 32'h01B1061A;
+#5;
+assert (Final_Result === 32'h01a) else $error ("error: lb");
+//------------------------------------lb Instruction Passed-------------------------------------------//
+
+#5;
+Instr = 32'h06000403; ReadData = 32'hA1230207;      //lb instruction. load byte to r10
 #10;
-Instr = 32'b000000000111_00000_000_00111_0010011;
-#10;
-Instr = 32'h0471AA23;
-#10;
-Instr = 32'h06002103;
+Instr = 32'h00750513;                               //Addi (add 7 to r10)
+#5;
+assert (Final_Result === 32'd14) else $error("error: lb + addi");
+
 end
 
 endmodule
