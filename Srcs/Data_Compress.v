@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: A functional module to use either 32bits, 16bits or 8bits of the ReadData from the 
+// Description: A functional module to use either 32bits, 16bits or 8bits of the ReadData output from the 
 //              Data Memory according to the Instruction (lw, lb, lbu, lh, lhu)
 
 //              The fuction of the module is controlled using the DataSrc control signals. These signals 

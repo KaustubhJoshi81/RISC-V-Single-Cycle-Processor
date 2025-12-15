@@ -24,17 +24,22 @@ input [31:0]DataAddress,
 input [31:0] Write,
 output [31:0] Read,
 input WE,
+input [2:0]funct3,
 input clk
 );
 
-reg [31:0] mem[63:0];
+reg [31:0] mem[511:0];
 
 always @(posedge clk)
 begin
     if(WE)
         begin
-            mem[DataAddress[31:2]] <= Write;
-            //Read <= Write;
+            case(funct3)
+                3'b000: mem[DataAddress[31:2]] <= Write[7:0];       //sb instr
+                3'b001: mem[DataAddress[31:2]] <= Write[15:0];      //sh instr
+                3'b010: mem[DataAddress[31:2]] <= Write;            //sw instr
+                default: mem[DataAddress[31:2]] <= 32'bz;
+            endcase
         end
 end
 

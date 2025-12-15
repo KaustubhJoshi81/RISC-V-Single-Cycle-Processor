@@ -26,24 +26,31 @@ output [31:0] PC,
 input  [31:0] Instr,
 output [31:0] ALUResult,        //Data Address for Data Memory
 output MemWrite,
+output [2:0]funct3,
 output [31:0] WriteData,
 input  [31:0] ReadData,
-output [31:0] Final_Result
+output [31:0] Final_Result,
+output overflow,
+output underflow
 );
 
 wire PCSrc;
-wire [1:0]ResultSrc;
+wire [2:0]ResultSrc;
 wire ALUSrc;
 wire [1:0]ImmSrc;
 wire RegWrite;
 wire [3:0]ALUControl;
 wire zero_flag;
+wire less_than_flag;
+wire unsign_less_than_flag;
 wire [2:0] DataSrc;
 
 Datapath data_path(Reset, clk, Instr, PCSrc, ResultSrc, ALUSrc, ImmSrc, RegWrite, ALUControl, PC, WriteData, 
-                   ReadData, zero_flag, ALUResult, Final_Result, DataSrc);
+                   ReadData, zero_flag, less_than_flag, unsign_less_than_flag, overflow, underflow, ALUResult, Final_Result, DataSrc);
 
-Controller control(Instr[14:12], zero_flag, Instr[30], Instr[6:0], PCSrc, ResultSrc, MemWrite, ALUSrc, ImmSrc, 
+Controller control(Instr[14:12], zero_flag, less_than_flag, unsign_less_than_flag, Instr[30], Instr[6:0], PCSrc, ResultSrc, MemWrite, ALUSrc, ImmSrc, 
                    RegWrite, ALUControl, DataSrc);
+
+assign funct3 = Instr[14:12];
 
 endmodule

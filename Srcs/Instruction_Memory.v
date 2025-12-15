@@ -25,7 +25,7 @@ input [31:0]PC,
 output [31:0] Instr 
     );
     
-reg [31:0] instr_mem[31:0];
+reg [31:0] instr_mem[100:0];
 
 initial begin
     $readmemh ("riscvtext.mem", instr_mem);

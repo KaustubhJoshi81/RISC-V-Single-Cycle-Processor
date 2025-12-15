@@ -33,7 +33,7 @@ always @(*)
 begin
     case(ALUOp)
         2'b00: ALUControl <= 4'b0000;                        //Add (lw,sw)
-        2'b01: ALUControl <= 4'b0001;                        //Sub (beq)
+        2'b01: ALUControl <= 4'b0001;                        //Sub (b-type instructions)
         default: case(funct3)
                     3'b000: if(RTypeSub)
                                 ALUControl <= 4'b0001;       //Subtraction

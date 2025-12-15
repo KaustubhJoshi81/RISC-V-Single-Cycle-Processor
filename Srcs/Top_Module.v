@@ -26,17 +26,20 @@ input Reset,
 output MemWrite,
 output [31:0] WriteData,        //RD2
 output [31:0] DataAddress,      //ALU Result
-output [31:0] Final_Result
+output [31:0] Final_Result,
+output overflow,
+output underflow
     );
    
 wire [31:0] PC;
 wire [31:0] Instr;
 wire [31:0] ReadData;
+wire [2:0] funct3;
 
-CPU cpu(Reset, clk, PC, Instr, DataAddress, MemWrite, WriteData, ReadData, Final_Result);
+CPU cpu(Reset, clk, PC, Instr, DataAddress, MemWrite, funct3, WriteData, ReadData, Final_Result, overflow, underflow);
 
 Instruction_Memory InstrMem(PC, Instr);
 
-Data_Memory DataMem(DataAddress, WriteData, ReadData, MemWrite, clk);
+Data_Memory DataMem(DataAddress, WriteData, ReadData, MemWrite, funct3, clk);
 
 endmodule

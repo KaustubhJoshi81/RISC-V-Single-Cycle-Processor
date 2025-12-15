@@ -24,17 +24,21 @@ module Mux2_ResultSrc(
 input [31:0]  ALUResult,
 input [31:0]  ReadData,
 input [31:0]  PCPlus4,
-input [1:0]   ResultSrc,
+input [31:0]  PCTarget,
+input [31:0]  ImmExt,
+input [2:0]   ResultSrc,
 output reg [31:0] y
     );
 
 always @(*)
 begin
     case (ResultSrc)
-        2'b00: y <= ALUResult;
-        2'b01: y <= ReadData;
-        2'b10: y <= PCPlus4;
-        default:y <= 32'bx;
+        3'b000: y <= ALUResult;
+        3'b001: y <= ReadData;
+        3'b010: y <= PCPlus4;
+        3'b011: y <= PCTarget;
+        3'b100: y <= ImmExt;
+        default:y <= 32'bz;
     endcase
 end
 endmodule

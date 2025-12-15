@@ -24,11 +24,15 @@ module Datapath(
 input Reset,
 input clk,
 input [31:0] Instr,
-input PCSrc, [1:0]ResultSrc, ALUSrc, [1:0]ImmSrc, RegWrite, [3:0]ALUControl,
+input PCSrc, [2:0]ResultSrc, ALUSrc, [1:0]ImmSrc, RegWrite, [3:0]ALUControl,
 output [31:0] PC,
 output [31:0] WriteData,
 input [31:0] ReadData,
 output zero_flag,
+output less_than_flag,
+output unsign_less_than_flag,
+output overflow,
+output underflow,
 output [31:0]ALUResult,
 output [31:0] Final_Result,
 input [2:0] DataSrc
@@ -48,11 +52,10 @@ Mux2 PCmux(PCPlus4, PCTarget, PCSrc, PCNext);
 //ALU Logic
 wire [31:0] SrcA; 
 wire [31:0] SrcB;
-wire [31:0] ImmExt;
 
 Sign_extention ExtUnit(Instr[31:7], ImmSrc, ImmExt);
 Mux2 ALUmux(WriteData, ImmExt, ALUSrc, SrcB);
-ALU AluUnit(ALUControl, SrcA, SrcB, ALUResult, zero_flag);
+ALU AluUnit(ALUControl, SrcA, SrcB, ALUResult, zero_flag, less_than_flag, unsign_less_than_flag, overflow, underflow);
 
 //Register File Logic
 
@@ -63,6 +66,6 @@ Register_File regfile(clk, Instr[19:15], Instr[24:20], RegWrite, Instr[11:7], Fi
 wire [31:0] Final_Data;
 Data_Compress datacomp(ReadData, Final_Data, DataSrc);
 
-Mux2_ResultSrc ResultMux(ALUResult, Final_Data, PCPlus4, ResultSrc, Final_Result);                                   
+Mux2_ResultSrc ResultMux(ALUResult, Final_Data, PCPlus4, PCTarget, ImmExt, ResultSrc, Final_Result);                                   
 
 endmodule
