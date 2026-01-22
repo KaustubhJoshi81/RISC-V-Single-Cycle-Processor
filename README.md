@@ -12,6 +12,6 @@ For sw,sh and sb instructions, i have modified the data memory unit which reciev
 
 For b-type instructions, we require two more flags: less_than_flag and unsigned_less_than_flag. I had to edit ALU unit to generate these flags and just like zero-flag, these flags are also sent to Controller unit. The controller also uses funct3 bits along with flags to calculate PCSrc for the specific b-type instruction. I have also created overflow and underflow flags which aren't connected to any other module but rather used as output of the top-module.
 
-For selecting between PCPlus4, Jal, Jalr and B-type instructions, I used 2 Multiplexers. 1st one is FinalPCTargetMux, which selects between output of SignExtention unit (Jal) and ALUResult (jalr). The 2nd mux is PCMux which selects signals between PCPlus4 and previously selected signal.
+For selecting between PCPlus4, Jal, Jalr and B-type instructions, I used 2 Multiplexers. 1st one is FinalPCTargetMux, which selects between output of SignExtention unit (Jal & B-type instr) and ALUResult (jalr). The 2nd mux is PCMux which selects signals between PCPlus4 and previously selected signal.
 
 I have also added a textfile which explains the additional machine code instructions i have added in the riscvmem.txt file. I have referred to the textbook for the first 21 instructions which tests the 5 instructions which were initially implemented.  
