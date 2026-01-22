@@ -35,7 +35,8 @@ output overflow,
 output underflow,
 output [31:0]ALUResult,
 output [31:0] Final_Result,
-input [2:0] DataSrc
+input [2:0] DataSrc,
+input PCTargetSrc
     );
 
 //PC Register Logic
@@ -43,11 +44,13 @@ wire [31:0] PCNext;
 wire [31:0] PCPlus4;
 wire [31:0] ImmExt;
 wire [31:0] PCTarget;
+wire [31:0] FinalPCTarget;
 
 PC_Register Reg(PCNext, PC, clk, Reset);            
 Adder Add4(PC, 32'd4, PCPlus4);
 Adder Jump(PC, ImmExt, PCTarget);
-Mux2 PCmux(PCPlus4, PCTarget, PCSrc, PCNext);
+Mux2 FinalPCTargetMux(PCTarget, ALUResult, PCTargetSrc, FinalPCTarget);
+Mux2 PCmux(PCPlus4, FinalPCTarget, PCSrc, PCNext);
 
 //ALU Logic
 wire [31:0] SrcA; 

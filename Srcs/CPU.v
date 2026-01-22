@@ -44,12 +44,13 @@ wire zero_flag;
 wire less_than_flag;
 wire unsign_less_than_flag;
 wire [2:0] DataSrc;
+wire PCTarget;
 
 Datapath data_path(Reset, clk, Instr, PCSrc, ResultSrc, ALUSrc, ImmSrc, RegWrite, ALUControl, PC, WriteData, 
-                   ReadData, zero_flag, less_than_flag, unsign_less_than_flag, overflow, underflow, ALUResult, Final_Result, DataSrc);
+                   ReadData, zero_flag, less_than_flag, unsign_less_than_flag, overflow, underflow, ALUResult, Final_Result, DataSrc, PCTarget);
 
 Controller control(Instr[14:12], zero_flag, less_than_flag, unsign_less_than_flag, Instr[30], Instr[6:0], PCSrc, ResultSrc, MemWrite, ALUSrc, ImmSrc, 
-                   RegWrite, ALUControl, DataSrc);
+                   RegWrite, ALUControl, DataSrc, PCTarget);
 
 assign funct3 = Instr[14:12];
 

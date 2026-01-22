@@ -28,14 +28,14 @@ input unsign_less_than_flag,
 input funct7b5,
 input [6:0] op,
 output reg PCSrc,     
-output [2:0]ResultSrc, MemWrite, ALUSrc, [1:0]ImmSrc, RegWrite, [3:0]ALUControl, [2:0] DataSrc
+output [2:0]ResultSrc, MemWrite, ALUSrc, [1:0]ImmSrc, RegWrite, [3:0]ALUControl, [2:0] DataSrc, PCTarget
     );
    
 wire Branch;
 wire Jump;
 wire [1:0]ALUOp;
 
-Main_Decoder main_dec(funct3, op,Branch,ResultSrc, MemWrite, ALUSrc, ImmSrc, RegWrite, ALUOp, Jump, DataSrc);
+Main_Decoder main_dec(funct3, op,Branch,ResultSrc, MemWrite, ALUSrc, ImmSrc, RegWrite, ALUOp, Jump, DataSrc, PCTarget);
 ALU_Decoder alu_dec(funct3, funct7b5, op[5], ALUOp, ALUControl);
 
 always @(*) begin    
