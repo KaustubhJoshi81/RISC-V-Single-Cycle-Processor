@@ -51,6 +51,7 @@ Adder Add4(PC, 32'd4, PCPlus4);
 Adder Jump(PC, ImmExt, PCTarget);
 Mux2 FinalPCTargetMux(PCTarget, ALUResult, PCTargetSrc, FinalPCTarget);
 Mux2 PCmux(PCPlus4, FinalPCTarget, PCSrc, PCNext);
+//Mux4 PCMux(PCPlus4, PCTarget, ALUResult, {PCTargetSrc, PCSrc}, PCNext);
 
 //ALU Logic
 wire [31:0] SrcA; 
@@ -69,6 +70,6 @@ Register_File regfile(clk, Instr[19:15], Instr[24:20], RegWrite, Instr[11:7], Fi
 wire [31:0] Final_Data;
 Data_Compress datacomp(ReadData, Final_Data, DataSrc);
 
-Mux2_ResultSrc ResultMux(ALUResult, Final_Data, PCPlus4, PCTarget, ImmExt, ResultSrc, Final_Result);                                   
+Mux5_ResultSrc ResultMux(ALUResult, Final_Data, PCPlus4, PCTarget, ImmExt, ResultSrc, Final_Result);                                   
 
 endmodule

@@ -35,14 +35,14 @@ begin
     if(WE)
         begin
             case(funct3)
-                3'b000: mem[DataAddress[31:2]] <= Write[7:0];       //sb instr
-                3'b001: mem[DataAddress[31:2]] <= Write[15:0];      //sh instr
-                3'b010: mem[DataAddress[31:2]] <= Write;            //sw instr
+                3'b000: mem[DataAddress[31:2]] <= Write[7:0];       //sb instr [word aligned]
+                3'b001: mem[DataAddress[31:2]] <= Write[15:0];      //sh instr [word aligned]
+                3'b010: mem[DataAddress[31:2]] <= Write;            //sw instr [word aligned]
                 default: mem[DataAddress[31:2]] <= 32'bz;
             endcase
         end
 end
 
-assign Read = mem[DataAddress[31:2]];
+assign Read = mem[DataAddress[31:2]];       //Word Aligned
 
 endmodule

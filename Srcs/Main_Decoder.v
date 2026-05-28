@@ -35,21 +35,21 @@ begin
     7'b0000011: 
         begin
             case (funct3)    //TargetSrc_DataSrc_WE3_Imm_ALUSrc_WE_ResultSrc_B_ALUOp_J
-            3'b000:  controls <= 16'bx___000_____1___00__1______0__001_______0_00____0;     //lb 
-            3'b010:  controls <= 16'bx___010_____1___00__1______0__001_______0_00____0;     //lw 
-            3'b001:  controls <= 16'bx___001_____1___00__1______0__001_______0_00____0;     //lh 
-            3'b100:  controls <= 16'bx___100_____1___00__1______0__001_______0_00____0;     //lbu 
-            3'b101:  controls <= 16'bx___101_____1___00__1______0__001_______0_00____0;     //lhu 
-            default: controls <= 16'bz;
+            3'b000:  controls <= 16'b0___000_____1___00__1______0__001_______0_00____0;     //lb 
+            3'b010:  controls <= 16'b0___010_____1___00__1______0__001_______0_00____0;     //lw 
+            3'b001:  controls <= 16'b0___001_____1___00__1______0__001_______0_00____0;     //lh 
+            3'b100:  controls <= 16'b0___100_____1___00__1______0__001_______0_00____0;     //lbu 
+            3'b101:  controls <= 16'b0___101_____1___00__1______0__001_______0_00____0;     //lhu 
+            default: controls <= 16'bx;
             endcase
         end                       
     7'b0010011: 
         begin
         if(funct3===3'b000)
                        //TargetSrc_DataSrc_WE3_Imm_ALUSrc_WE_ResultSrc_B_ALUOp_J
-            controls <= 16'bx______010_____1___00__1______0__000_______0_00____0;       //addi
+            controls <= 16'b0______010_____1___00__1______0__000_______0_00____0;       //addi
         else 
-            controls <= 16'bx______010_____1___00__1______0__000_______0_xx____0;       //slli,slti,sltiu,
+            controls <= 16'b0______010_____1___00__1______0__000_______0_xx____0;       //slli,slti,sltiu,
                                                                                 //xori,srai,srli,ori,andi
         end
                           //TargetSrc_DataSrc_WE3_Imm_ALUSrc_WE_ResultSrc_B_ALUOp_J
@@ -57,11 +57,11 @@ begin
     
     //-----------------------------------------S type Instructions-------------------------------------------------//I    
                            //TargetSrc_DataSrc_WE3_Imm_ALUSrc_WE_ResultSrc_B_ALUOp_J
-    7'b0100011: controls <= 16'bx______xxx_____0___01__1______1__xxx_______0_00____0;     
+    7'b0100011: controls <= 16'b0______xxx_____0___01__1______1__xxx_______0_00____0;     
     
     //-----------------------------------------R type instructions-------------------------------------------------//
                            //TargetSrc_DataSrc_WE3_Imm_ALUSrc_WE_ResultSrc_B_ALUOp_J
-    7'b0110011: controls <= 16'bx______010_____1___xx__0______0__000_______0_xx____0;     
+    7'b0110011: controls <= 16'b0______010_____1___xx__0______0__000_______0_xx____0;     
     
     //-----------------------------------------B type instructions-------------------------------------------------//
                            //TargetSrc_DataSrc_WE3_Imm_ALUSrc_WE_ResultSrc_B_ALUOp_J
@@ -73,8 +73,8 @@ begin
     
     //-----------------------------------------U-Type instruction--------------------------------------------------//
                            //TargetSrc_DataSrc_WE3_Imm_ALUSrc_WE_ResultSrc_B_ALUOp_J
-    7'b0010111: controls <= 16'bx______xxx_____1___xx__x______x__011_______0_xx____0;     //auipc
-    7'b0110111: controls <= 16'bx______xxx_____1___xx__x______x__100_______0_xx____0;     //lui
+    7'b0010111: controls <= 16'b0______xxx_____1___xx__x______x__011_______0_xx____0;     //auipc
+    7'b0110111: controls <= 16'b0______xxx_____1___xx__x______x__100_______0_xx____0;     //lui
             
     default: controls <= 16'bx; 
     endcase

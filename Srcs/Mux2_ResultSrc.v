@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Mux2_ResultSrc(
+module Mux5_ResultSrc(
 input [31:0]  ALUResult,
 input [31:0]  ReadData,
 input [31:0]  PCPlus4,
